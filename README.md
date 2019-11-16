@@ -3,14 +3,100 @@
 FFXIV Companion App lib for Elixir
 
 ```elixir
-iex(1)> Companion.configure(uid: "9fdd8622-9d33-4ff9-9b11-2187519ebe9b")
+# set random UUID or set your own using Companion.configure/1
+iex(1)> Companion.configure_random_uid
 :ok
-iex(2)> Companion.Auth.request_token()
+
+# login using username/pass (doesn't handle OTP tokens cause im lazy)
+iex(2)> Companion.login %{username: "thicc", password: "pass"}
+
+23:45:38.365 [debug] got token: b88721d5e22c9c687b0e98bc9cb534a0
+{:ok,
+ [
+   token: "b88721d5e22c9c687b0e98bc9cb534a0",
+   uid: "efe55ea8c251c2bbb4e7f882956b82de0dd9508064e4e0f444ba923c24b3793265c24cc19d0c7cbf81051cba3bc1acb121fc80dba3112149363eb7df2f667df1cf8e7e4eab6afa47c0c9f890a1aed981fcdd3ab5462e188fe511a25cd793b605a9fcc308170d7bcaf486c696d57d413d021be2180fc99eb9f20f2f0e9400e335"
+ ]}
+
+# region
+iex(3)> Companion.region
+%{"region" => ""}
+
+# your characters
+iex(4)> Companion.characters
 %{
-  "region" => "",
-  "salt" => "14e91d3fd18ff697a9c5d1a891599865204278b8",
-  "token" => "31a804b46c05ff185c287f0969f41e1a"
+  "accounts" => [
+    %{
+      "accName" => "FINAL FANTASY XIV",
+      "characters" => [
+        %{
+          "bodyUrl" => "https://img2.finalfantasyxiv.com/f/.jpg",
+          "cid" => "000fffffffffffff_12345",
+          "faceUrl" => "https://img2.finalfantasyxiv.com/f/.jpg",
+          "isRenamed" => false,
+          "lodestonecid" => "123123",
+          "name" => "Someone Cute",
+          "status" => 1,
+          "world" => "Twintania"
+        },
+  #...
+      ]
+    }
+  ]
 }
+iex(5)> Companion.login_character("000fffffffffffff_12345")
+%{"region" => "https://companion-eu.finalfantasyxiv.com/"}
+
+# character info
+iex(6)> Companion.API.Base.request(:get, "login/character")
+%{
+  "character" => %{
+    "cid" => "85e39b75d6cb2198_24169",
+    "lodestonecid" => "27982574",
+    "name" => "Miko Kuri",
+    "portrait" => "3533de29710b750a2776ffd07275a5b4_644311b63b607133c989d7c1188467da",
+    "world" => "Odin"
+  },
+  "domains" => %{
+    "appWeb" => "https://companion-app.finalfantasyxiv.com/",
+    "cdn1" => "https://img.finalfantasyxiv.com/",
+    "cdn2" => "https://img2.finalfantasyxiv.com/",
+    "lodestone" => "https://{lang.lodestone}.finalfantasyxiv.com/"
+  },
+  "role" => 1,
+  "updatedAt" => 1573944424850
+}
+
+# current char world
+iex(7)> Companion.character_worlds
+%{
+  "currentWorld" => "Odin",
+  "getBagFlag" => true,
+  "loginStatusCode" => 0,
+  "world" => "Odin"
+}
+
+# yeet.
+iex(8)> Companion.market_search("27938", "Odin")
+%{
+  "entries" => [
+    %{
+      "catalogId" => 27938,
+      "hq" => 1,
+      "isCrafted" => true,
+      "itemId" => "",
+      "materia" => [],
+      "materias" => 0,
+      "registerTown" => 1,
+      "sellPrice" => "999999999999",
+      "sellRetainerName" => "Slave",
+      "signatureName" => "Epic Crafter",
+      "stack" => 1,
+      "stain" => 0
+    }
+  ]
+  # ...
+}
+
 # TODO
 ```
 
