@@ -4,7 +4,7 @@ defmodule Companion.Client do
   `Client` represents an API Client.
   """
 
-  import HTTPoison.Retry
+  import Companion.Utils.Retry
 
   @spec set_request_id(keyword) :: any
   def set_request_id(opts) do

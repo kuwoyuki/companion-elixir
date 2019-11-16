@@ -3,11 +3,14 @@ defmodule Companion.MixProject do
 
   def project do
     [
-      app: :companion,
-      version: "0.1.0",
+      app: :companion_ex,
+      version: "0.0.1",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      package: package(),
+      description: description(),
+      deps: deps(),
+      source_url: "https://github.com/kuwoyuki/companion-elixir"
     ]
   end
 
@@ -22,14 +25,23 @@ defmodule Companion.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      {:httpoison_retry, git: "https://github.com/everilae/httpoison_retry.git"},
       {:httpoison, "~> 1.6"},
       {:elixir_uuid, "~> 1.2"},
       {:x509, "~> 0.7.0"},
       {:poison, "~> 3.1"},
       {:plug_crypto, "~> 1.0"},
       {:floki, "~> 0.23.0"}
+    ]
+  end
+
+  defp description() do
+    "Library for FFXIV Companion API."
+  end
+
+  defp package() do
+    [
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/kuwoyuki/companion-elixir"}
     ]
   end
 end
