@@ -27,7 +27,9 @@ defmodule Companion.MixProject do
       {:httpoison, "~> 1.6"},
       {:elixir_uuid, "~> 1.2"},
       {:x509, "~> 0.7.0"},
-      {:poison, "~> 3.1"}
+      {:poison, "~> 3.1"},
+      {:plug_crypto, "~> 1.0"},
+      {:floki, "~> 0.23.0"}
     ]
   end
 end

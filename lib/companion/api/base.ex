@@ -3,17 +3,15 @@ defmodule Companion.API.Base do
   Provides basic and common functionalities for FFXIV Companion API.
   """
 
-  @doc """
-  Send request to the companion.finalfantasyxiv.com server.
-  """
-  def request(method, path, body \\ %{}) do
-    do_request(method, request_url(path), body)
+  @spec request(any, any, any, keyword) :: false | nil | true | binary | [any] | number | map
+  def request(method, path, body \\ %{}, opts \\ []) do
+    do_request(method, request_url(path), body, opts)
   end
 
-  defp do_request(method, url, body) do
+  defp do_request(method, url, body, opts) do
     config = Companion.Config.get()
 
-    case Companion.Client.request(method, url, body, config[:token]) do
+    case Companion.Client.request(method, url, body, opts ++ config) do
       %HTTPoison.Response{body: body, status_code: code} when code >= 200 and code < 300 ->
         Poison.decode!(body)
 
