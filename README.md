@@ -43,6 +43,8 @@ iex(4)> Companion.characters
     }
   ]
 }
+
+# login the char
 iex(5)> Companion.login_character("000fffffffffffff_12345")
 %{"region" => "https://companion-eu.finalfantasyxiv.com/"}
 
@@ -50,11 +52,11 @@ iex(5)> Companion.login_character("000fffffffffffff_12345")
 iex(6)> Companion.API.Base.request(:get, "login/character")
 %{
   "character" => %{
-    "cid" => "85e39b75d6cb2198_24169",
-    "lodestonecid" => "27982574",
-    "name" => "Miko Kuri",
-    "portrait" => "3533de29710b750a2776ffd07275a5b4_644311b63b607133c989d7c1188467da",
-    "world" => "Odin"
+    "cid" => "000fffffffffffff_12345",
+    "lodestonecid" => "12345678",
+    "name" => "Someone Cute",
+    "portrait" => "",
+    "world" => "Twintania"
   },
   "domains" => %{
     "appWeb" => "https://companion-app.finalfantasyxiv.com/",
