@@ -1,14 +1,14 @@
 defmodule Companion.Config do
-  @doc """
-  Get Companion configuration values.
-  """
-  def get, do: Process.get(:_companion_config, nil)
+  @spec get :: any
+  def get, do: Process.get(:_companion_config, [])
 
-  @doc """
-  Set Companion configuration values.
-  """
+  @spec set(any) :: :ok
   def set(value) do
     Process.put(:_companion_config, value)
     :ok
   end
+
+  @spec append(any, any) :: any
+  def append(k, v), do: Process.put(:_companion_config, Keyword.put(get(), k, v)) # wat
+  :ok
 end

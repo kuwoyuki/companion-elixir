@@ -3,6 +3,8 @@ defmodule Companion.API.Base do
   Provides basic and common functionalities for FFXIV Companion API.
   """
 
+  alias Companion.Config
+
   @spec request(any, any, any, keyword) :: false | nil | true | binary | [any] | number | map
   def request(method, path, body \\ %{}, opts \\ []) do
     do_request(method, request_url(path), body, opts)
@@ -24,6 +26,11 @@ defmodule Companion.API.Base do
   end
 
   def request_url(path) do
-    "https://companion.finalfantasyxiv.com/sight-v060/sight/#{path}"
+    config = Config.get()
+
+    cond do
+      Keyword.has_key?(Config.get(), :uri) -> config[:uri] <> "sight-v060/sight/#{path}"
+      true -> "https://companion.finalfantasyxiv.com/sight-v060/sight/#{path}"
+    end
   end
 end

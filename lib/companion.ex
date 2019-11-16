@@ -48,4 +48,16 @@ defmodule Companion do
 
     {:ok, details}
   end
+
+  defdelegate region, to: Companion.API.Login
+
+  defdelegate characters, to: Companion.API.Login
+
+  defdelegate login_character(id), to: Companion.API.Login
+
+  defdelegate set_fcm_token(token), to: Companion.API.Login
+
+  defdelegate character_worlds, to: Companion.API.Character
+
+  defdelegate market_search(id, world), to: Companion.API.Market
 end
