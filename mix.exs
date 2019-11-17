@@ -4,7 +4,7 @@ defmodule Companion.MixProject do
   def project do
     [
       app: :companion_ex,
-      version: "0.0.1",
+      version: "0.1.0",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
       package: package(),
@@ -28,9 +28,9 @@ defmodule Companion.MixProject do
       {:httpoison, "~> 1.6"},
       {:elixir_uuid, "~> 1.2"},
       {:x509, "~> 0.7.0"},
-      {:poison, "~> 3.1"},
+      {:poison, "~> 4.0"},
       {:plug_crypto, "~> 1.0"},
-      {:floki, "~> 0.23.0"}
+      {:floki, "~> 0.23"}
     ]
   end
 

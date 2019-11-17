@@ -110,7 +110,7 @@ by adding `companion` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:companion, "~> 0.1.0"}
+    {:companion_ex, "~> 0.1.0"}
   ]
 end
 ```
