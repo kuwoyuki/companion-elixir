@@ -44,7 +44,7 @@ hQIDAQAB
     body = %{
       appVersion: @app_version,
       platform: @platform.android,
-      uid: Config.get()[:user_id] |> rsa_encrypt()
+      uid: Config.get()[:uid]
     }
 
     %{"token" => token} = Companion.API.Base.request(:post, "login/token", body)
