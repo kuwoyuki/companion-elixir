@@ -30,6 +30,27 @@ hQIDAQAB
   @sqex_oauth_uri "https://secure.square-enix.com/oauth/oa/"
   @oauth_callback "https://companion.finalfantasyxiv.com/api/0/auth/callback"
 
+  @spec rsa_encrypt(binary) :: binary
+  def rsa_encrypt(str) do
+    pub_key = X509.PublicKey.from_pem!(@pem)
+
+    str
+    |> :public_key.encrypt_public(pub_key)
+    |> :base64.encode()
+  end
+
+  @spec refresh_token :: :ok
+  def refresh_token do
+    body = %{
+      appVersion: @app_version,
+      platform: @platform.android,
+      uid: Config.get()[:uid] |> rsa_encrypt()
+    }
+
+    %{"token" => token} = Companion.API.Base.request(:post, "login/token", body)
+    Config.append(:token, token)
+  end
+
   @spec build_login_uri(binary) :: binary
   def build_login_uri(uri) do
     @sqex_auth_uri <>
@@ -62,17 +83,11 @@ hQIDAQAB
   """
   def request_salt_token(platform \\ @platform.android) do
     config = Config.get()
-    pub_key = X509.PublicKey.from_pem!(@pem)
-
-    hashed_uid =
-      config[:user_id]
-      |> :public_key.encrypt_public(pub_key)
-      |> :base64.encode()
 
     body = %{
       appVersion: @app_version,
       platform: platform,
-      uid: hashed_uid
+      uid: config[:user_id] |> rsa_encrypt()
     }
 
     Companion.API.Base.request(:post, "login/token", body)
