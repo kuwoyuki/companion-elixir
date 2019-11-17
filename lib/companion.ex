@@ -51,6 +51,8 @@ defmodule Companion do
 
   defdelegate region, to: Companion.API.Login
 
+  defdelegate character, to: Companion.API.Login
+
   defdelegate characters, to: Companion.API.Login
 
   defdelegate login_character(id), to: Companion.API.Login

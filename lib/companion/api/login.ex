@@ -6,6 +6,11 @@ defmodule Companion.API.Login do
     API.Base.request(:get, "login/region")
   end
 
+  @spec character :: false | nil | true | binary | [any] | number | map
+  def character do
+    API.Base.request(:get, "login/character")
+  end
+
   @spec characters :: false | nil | true | binary | [any] | number | map
   def characters do
     API.Base.request(:get, "login/characters")
